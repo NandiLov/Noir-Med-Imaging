@@ -1,4 +1,4 @@
-#Noir Med-Imaging by Nandila Mulilalila
+# Noir Med-Imaging by Nandila Mulilalila
 ## WebApp Description:
 
 Noir Med-Imaging is a state-of-the-art web application designed to streamline and enhance the healthcare experience for both patients and medical professionals. This comprehensive platform integrates cutting-edge features to facilitate seamless communication, diagnostics, and healthcare management. Here's an overview of the key functionalities:
