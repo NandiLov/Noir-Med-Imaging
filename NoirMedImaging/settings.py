@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zii5%%8by3a(17@3!ha6w9nf*@w$2_2d$lfci=^scu(x)$%p5)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False #True
 
-ALLOWED_HOSTS = ["noirmed.pythonanywhere.com"]
+ALLOWED_HOSTS = ["noirmed.pythonanywhere.com" , "*"]
 
 
 # Application definition
@@ -133,7 +133,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    '/home/noirmed/Noir-Med-Imaging/static',
+    '/home/noirmed/Noir-Med-Imaging/medapp/static/',
 ]
 STATIC_ROOT = '/home/noirmed/Noir-Med-Imaging/static_root/'
 
