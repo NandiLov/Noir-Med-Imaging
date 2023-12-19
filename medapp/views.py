@@ -8,6 +8,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
 from .forms import ImagingForm, ReportForm
+from .models import Imaging
+
+
+
+def homepage(request):
+    return render(request, 'homepage.html')
+
 
 def register(request):
     if request.method == 'POST':

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zii5%%8by3a(17@3!ha6w9nf*@w$2_2d$lfci=^scu(x)$%p5)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #True
+DEBUG = True
 
 ALLOWED_HOSTS = ["noirmed.pythonanywhere.com" , "*"]
 
@@ -49,6 +49,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", #to simplify serving static files in a production environment since iam not using
+                                                    #a separate web server like Nginx or Apache to serve static files
 ]
 
 ROOT_URLCONF = "NoirMedImaging.urls"
@@ -130,13 +132,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+#STATIC_URL = "static/"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#STATICFILES_DIRS = [
+ #   os.path.join(BASE_DIR, 'medapp/static'),
+#]
+
+
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = [
+ #   os.path.join(BASE_DIR, 'medapp/static'),
+#]
+
+
+# settings.py
 STATIC_URL = "static/"
-
-STATICFILES_DIRS = [
-    '/home/noirmed/Noir-Med-Imaging/medapp/static/',
-]
-STATIC_ROOT = '/home/noirmed/Noir-Med-Imaging/static_root/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#'/home/noirmed/Noir-Med-Imaging/static/'
 
 
 # Media files (uploads)
