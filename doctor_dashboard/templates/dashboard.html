@@ -1,0 +1,13 @@
+<!-- doctor/templates/dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Doctor's Dashboard</h2>
+  <ul>
+    <li><a href="{% url 'patient_list' %}">Patients</a></li>
+    <li><a href="#">Appointments</a></li>
+    <li><a href="#">Contact Patient</a></li>
+    <li><a href="#">Account</a></li>
+  </ul>
+{% endblock %}

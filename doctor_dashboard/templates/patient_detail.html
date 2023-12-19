@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ patient.name }} - Details</h2>
+    <!-- Display patient details here -->
+    <h3>Medical Files</h3>
+    <ul>
+        {% for file in patient.medical_files %}
+            <li><a href="{% url 'upload_report' file.id %}">{{ file.file_name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

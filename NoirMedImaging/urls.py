@@ -20,6 +20,8 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('medapp.urls')),
+    #path('', include('doctors_dashboard.urls')),
+    path('doctor_dashboard/', include('doctor_dashboard.urls')),
 
     # Add other URLs as needed
 ]

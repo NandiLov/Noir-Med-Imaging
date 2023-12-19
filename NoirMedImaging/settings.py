@@ -26,6 +26,7 @@ SECRET_KEY = "django-insecure-zii5%%8by3a(17@3!ha6w9nf*@w$2_2d$lfci=^scu(x)$%p5)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ["noirmed.pythonanywhere.com" , "*"]
 
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "medapp",
+    "doctor_dashboard.apps.DoctorsDashboardConfig",
 ]
 
 MIDDLEWARE = [
@@ -115,6 +117,11 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+
+# login url
+
+#LOGIN_URL = 'login'
 
 
 # Internationalization
