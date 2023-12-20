@@ -24,3 +24,7 @@ class Report(models.Model):
     report_text = models.TextField()
     uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class DicomImage(models.Model):
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='dicom_images/')

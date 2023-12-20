@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Doctor's Dashboard{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+    <script src="https://unpkg.com/cornerstone-core/dist/cornerstone.js"></script>
 </head>
 <body>
     <div id="sidebar">
@@ -19,6 +20,7 @@
             <li><a href="#">Appointments</a></li>
             <li><a href="#">Contact Patient</a></li>
             <li><a href="#">Account</a></li>
+            <a href="{% url 'dicom_viewer' %}">DICOM Viewer</a>
         </ul>
     </div>
 

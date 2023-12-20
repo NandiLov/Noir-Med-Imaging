@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.views import View
+from .forms import DicomImageForm
 
 class HomeView(View):
     def get(self, request):
@@ -21,3 +22,19 @@ class UploadReportView(View):
         # Fetch medical file details from the database or any source
         medical_file = {}  # Replace with actual medical file details
         return render(request, 'upload_report.html', {'medical_file': medical_file})
+
+
+def upload_dicom(request):
+    if request.method == 'POST':
+        form = DicomImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('success_url')  # Specify the URL to redirect after successful upload
+    else:
+        form = DicomImageForm()
+
+    return render(request, 'upload_dicom.html', {'form': form})
+
+def dicom_viewer(request):
+    return render(request, 'dicom_viewer.html')
+
