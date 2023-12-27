@@ -1,7 +1,7 @@
 from django.db import models
 
+# Create your models here.
 # medapp/models.py
-
 
 from django.contrib.auth.models import User
 
@@ -22,13 +22,6 @@ class Imaging(models.Model):
     # Add other fields as needed
 
 class Report(models.Model):
-    title = models.CharField(max_length=100 , default='Untitled Report')
-    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='medapp_reports' ,  default=1)
-    file = models.FileField(upload_to='reports/' , default='medical_report.txt')
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')
     imaging = models.ForeignKey(Imaging, on_delete=models.CASCADE, related_name='reports')
     text = models.TextField()
-
-    def __str__(self):
-        return self.title
-

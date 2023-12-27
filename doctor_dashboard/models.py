@@ -15,15 +15,9 @@ class Appointment(models.Model):
 
 class MedicalFile(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='medical_files/', default='medical_report.txt')
-    #uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-
-    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doctor_dashboard_reports' ,  default=1)
-
+    file = models.FileField(upload_to='medical_files/')
+    uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
 
 class Report(models.Model):
     medical_file = models.ForeignKey(MedicalFile, on_delete=models.CASCADE)
