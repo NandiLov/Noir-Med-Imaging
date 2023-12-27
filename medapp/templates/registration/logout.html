@@ -1,8 +1,19 @@
 <!-- templates/registration/logout.html -->
 
-{% extends 'base.html' %}
-
-{% block content %}
-  <h2>Logout</h2>
-  <p>You have been logged out successfully.</p>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+    <link rel="stylesheet" href="{% static 'admin/css/logout.css' %}">
+    <!-- Replace 'css/logout.css' with the path to your logout CSS file -->
+</head>
+<body>
+    <div class="logout-container">
+        <h2>Logged Out</h2>
+        <p>You have been successfully logged out.</p>
+        <!-- You can add more content or messages here as needed -->
+        <a href="{% url 'home' %}">Return to Home</a> <!-- Example link to the homepage -->
+    </div>
+</body>
+</html>

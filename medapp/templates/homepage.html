@@ -1,14 +1,8 @@
 <!-- medapp/templates/homepage.html -->
+{% extends 'base.html' %}
 {% load static %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedApp</title>
-
+{% block extra_css %}
     <style>
         :root {
             --background-image: url('{% static "admin/img/background-image.jpg" %}');
@@ -17,22 +11,9 @@
 
 
     <link rel="stylesheet" href="{% static '/admin/css/homepage.css' %}">
+{% endblock %}
 
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>MedApp</h1>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Appointments</a></li>
-                    <li><a href="#">Imaging</a></li>
-                    <!-- Add more navigation links as needed -->
-                </ul>
-            </nav>
-        </div>
-    </header>
+{% block content %}
 
     <section class="hero">
         <div class="container">
@@ -58,12 +39,4 @@
         </div>
     </section>
 
-    <!-- Add more sections as needed -->
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 MedApp. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock %}

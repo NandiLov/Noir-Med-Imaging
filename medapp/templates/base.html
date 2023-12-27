@@ -1,3 +1,5 @@
+
+
 <!-- templates/base.html -->
 
 {% load static %}
@@ -10,8 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Noir Med-Imaging{% endblock %}</title>
 
-
-
+    {% block extrastyles %}{% endblock %}
     <link rel="stylesheet" type="css" href="{% static 'admin/css/responsive.css' %}">
     <link rel="stylesheet" type="css" href="{% static 'admin/css/responsive_rtl.css' %}">
     <link rel="stylesheet" type="css" href="{% static 'admin/css/rtl.css' %}">
@@ -26,19 +27,54 @@
     <link rel="stylesheet" type="css" href="{% static 'admin/css/vendor/select2/select2.min.css' %}">
     <link rel="stylesheet" type="css" href="{% static 'admin/css/vendor/select2/select2.css' %}">
     <link rel="stylesheet" type="css" href="{% static 'admin/css/homepage.css' %}">
-    <link rel="stylesheet" type="css" href="{% static 'admin/css/register.css' %}">
+
+    <link rel="stylesheet" type="css" href="{% static 'admin/css/style.css' %}">
+
     <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
     <script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
     <script src="{% static 'admin/js/vendor/select2/select2.full.min.js' %}"></script>
 
+    <style>
+        :root {
+            --background-image: url('{% static "admin/img/background-image.jpg" %}');
+        }
+    </style>
+
+
+
 </head>
 <body>
+    <header>
+        <div class="container">
+            <h1>NoirMed Imaging Solutions</h1>
+            <nav>
+                <ul>
+                    <a href="https://noirmed.pythonanywhere.com" class="btn">Home</a>
+
+                    <li><a href="https://noirmed.pythonanywhere.com/create_appointment/">Appointments</a></li>
+                    <li><a href="https://noirmed.pythonanywhere.com/upload_image/">Imaging</a></li>
+                    <li><a href="https://noirmed.pythonanywhere.com/doctor_dashboard/download/">Report</a></li>
+                    <li><a href="upload_image.html">Contact</a></li>
+                    <!-- Add more navigation links as needed -->
+
+
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
 
     <div id="content">
         {% block content %}{% endblock %}
     </div>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 MedApp. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
-
