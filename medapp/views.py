@@ -3,36 +3,56 @@
 # medapp/views.py
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
 from .forms import ImagingForm, ReportForm
 from .models import Imaging
-
-
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 def homepage(request):
+    # Your homepage view logic here
     return render(request, 'homepage.html')
-
 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
+            user = form.save()
+            # Log the user in after successful registration
             login(request, user)
-            return redirect('dashboard')
+            return redirect('homepage')  # Redirect to homepage after registration
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('dashboard')  # Redirect to homepage after login
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('homepage')  # Redirect to homepage after logout
+
+
+
+
+
+
+
+
+
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
 
 
 @login_required

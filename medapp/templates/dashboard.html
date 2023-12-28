@@ -1,10 +1,60 @@
-<!-- templates/dashboard.html -->
+{% load static %}
 
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Dashboard{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{% static "/admin/css/dash.css" %}">
+</head>
 
-{% block content %}
-    <h2>Welcome to the Dashboard</h2>
-    <!-- Add dashboard content here -->
-{% endblock %}
+<body>
+    <header>
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="https://www.pythonanywhere.com/">Home</a></li>
+                <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation/">Appointments</a></li>
+                <li><a href="https://noirmed.pythonanywhere.com/upload_image/">Upload</a></li>
+                <li><a href="#report">Report</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <h2>Home</h2>
+            <!-- Home content -->
+        </section>
+
+        <section id="appointments">
+            <h2>Appointments</h2>
+            <!-- Calendar or scheduling content -->
+        </section>
+
+        <section id="upload">
+            <h2>Upload</h2>
+            <!-- Upload DICOM content -->
+        </section>
+
+        <section id="report">
+            <h2>Report</h2>
+            <!-- View and download report content -->
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <!-- Contact information or form -->
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+
+</html>

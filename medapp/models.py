@@ -3,11 +3,21 @@ from django.db import models
 # Create your models here.
 # medapp/models.py
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # Add fields for user profile (e.g., role: admin, doctor, patient)
+
+class UserRegistrationForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User  # Reference the User model correctly
+        fields = ['username', 'email', 'password1', 'password2']
 
 class Appointment(models.Model):
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')

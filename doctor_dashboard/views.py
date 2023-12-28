@@ -4,7 +4,7 @@ from .forms import DicomImageForm
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'home.html')
+        return render(request, 'dashboard.html')
 
 class PatientsView(View):
     def get(self, request):
