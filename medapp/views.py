@@ -3,57 +3,90 @@
 # medapp/views.py
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout, login
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
-from .forms import ImagingForm, ReportForm
+from .forms import ImagingForm, ReportForm, CreateUserForm, LoginForm
 from .models import Imaging
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
+
+from django.contrib.auth.models import auth
+
 
 def homepage(request):
-    # Your homepage view logic here
-    return render(request, 'homepage.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            # Log the user in after successful registration
-            login(request, user)
-            return redirect('homepage')  # Redirect to homepage after registration
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'medapp/homepage.html')
 
-def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+
+
+
+def my_register(request):
+
+    form = CreateUserForm()
+
+    if request.method == "POST":
+
+        form = CreateUserForm(request.POST)
+
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('dashboard')  # Redirect to homepage after login
-    else:
-        form = AuthenticationForm()
-    return render(request, 'registration/login.html', {'form': form})
+
+            form.save()
+
+            return redirect('medapp:patient_dashboard')  # Redirect to the 'dashboard' URL
+
+
+    context = {'registerform':form}
+
+    return render(request, 'medapp/register.html', context=context)
+
+
+def my_login(request):
+
+    form = LoginForm()
+
+    if request.method == 'POST':
+
+        form = LoginForm(request, data=request.POST)
+
+        if form.is_valid():
+
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+
+                auth.login(request, user)
+
+                return redirect('medapp:patient_dashboard')  # Redirect to the 'dashboard' URL
+
+    context = {'loginform':form}
+
+    return render(request, 'medapp/my-login.html', context=context)
+
+
+
 
 def user_logout(request):
     logout(request)
-    return redirect('homepage')  # Redirect to homepage after logout
+    # Redirect to a specific URL after logout, or use a template for logout confirmation.
+    return redirect('medapp:homepage')  # Replace 'home' with your desired URL name or path
 
 
 
+#def user_logout(request):
 
+ #   auth.logout(request)
 
-
+  #  return redirect("medapp:homepage")
 
 
 
 @login_required
-def dashboard(request):
-    return render(request, 'dashboard.html')
+def patient_dashboard(request):
 
-
+    return render(request, 'medapp/dashboard.html')
 
 @login_required
 def create_appointment(request):
@@ -63,13 +96,13 @@ def create_appointment(request):
             appointment = form.save(commit=False)
             appointment.patient = request.user
             appointment.save()
-            return redirect('dashboard')
+            return redirect('patient_dashboard')
     else:
         form = AppointmentForm()
     return render(request, 'create_appointment.html', {'form': form})
 
 
-@login_required
+@login_required(login_url="my_login")
 def upload_image(request):
     if request.method == 'POST':
         form = ImagingForm(request.POST, request.FILES)

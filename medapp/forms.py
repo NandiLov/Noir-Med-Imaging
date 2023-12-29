@@ -3,20 +3,27 @@
 from django import forms
 from .models import Appointment
 from .models import Imaging, Report
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.forms.widgets import PasswordInput, TextInput
 
-class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField()
+
+# - Create/Register a user (Model Form)
+
+class CreateUserForm(UserCreationForm):
 
     class Meta:
+
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class UserLoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
 
+# - Authenticate a user (Model Form)
+
+class LoginForm(AuthenticationForm):
+
+    username = forms.CharField(widget=TextInput())
+    password = forms.CharField(widget=PasswordInput())
 
 class AppointmentForm(forms.ModelForm):
     class Meta:
