@@ -1,6 +1,33 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , get_object_or_404
 from django.views import View
-from .forms import DicomImageForm
+from .models import Patient, UploadedDicom
+from django.http import HttpResponse
+
+
+
+
+def upload_dicom(request, patient_id):
+    patient = get_object_or_404(Patient, pk=patient_id)
+
+    if request.method == 'POST':
+        for file in request.FILES.getlist('dicom_files'):
+            UploadedDicom.objects.create(patient=patient, file=file)
+
+        # Handle successful upload
+        return HttpResponse("Upload successful")  # For example, returning a success message
+
+    return render(request, 'upload_dicom.html', {'patient': patient})
+
+def download_dicom(request, uploaded_dicom_id):
+    uploaded_dicom = get_object_or_404(UploadedDicom, pk=uploaded_dicom_id)
+
+    # Implement code to handle download
+    # For example, you might serve the file for download
+    # Replace the below line with your actual download logic
+    return HttpResponse(f"Downloading DICOM file {uploaded_dicom_id}")
+
+
+
 
 class HomeView(View):
     def get(self, request):
@@ -24,16 +51,7 @@ class UploadReportView(View):
         return render(request, 'upload_report.html', {'medical_file': medical_file})
 
 
-def upload_dicom(request):
-    if request.method == 'POST':
-        form = DicomImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('success_url')  # Specify the URL to redirect after successful upload
-    else:
-        form = DicomImageForm()
 
-    return render(request, 'upload_dicom.html', {'form': form})
 
 def dicom_viewer(request):
     return render(request, 'dicom_viewer.html')

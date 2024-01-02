@@ -1,12 +1,19 @@
-<!-- templates/upload_image.html -->
+<!-- templates/upload_image.html   -->
+
 
 {% extends 'base.html' %}
 
 {% block content %}
   <h2>Upload Image</h2>
-  <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload Image</button>
-  </form>
+    <input type="file" name="image_or_zip" accept=".zip, .jpg, .jpeg, .png" multiple>
+    <!-- Other form fields if needed -->
+    <button type="submit">Upload</button>
+    </form>
+
 {% endblock %}
+
+
+
+

@@ -25,4 +25,7 @@ urlpatterns = [
     path('create_appointment/', create_appointment, name='create_appointment'),
     path('upload_image/', upload_image, name='upload_image'),
     path('upload_report/<int:imaging_id>/', upload_report, name='upload_report'),
+    path('upload_successful/', views.upload_successful, name='upload_successful'),
+
+
 ]

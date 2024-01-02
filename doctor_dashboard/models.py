@@ -3,9 +3,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Add other patient-related fields as needed
+    name = models.CharField(max_length=100)
+    # Add other patient details
+
+class UploadedDicom(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='dicom_uploads/')  # Folder or multiple files
+
+
+
+
 
 class Appointment(models.Model):
     doctor = models.ForeignKey(User, on_delete=models.CASCADE)

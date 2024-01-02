@@ -8,8 +8,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
 from .forms import ImagingForm, ReportForm, CreateUserForm, LoginForm
 from .models import Imaging
-
-
+from zipfile import ZipFile
+import os
+from django.conf import settings
 from django.contrib.auth.models import auth
 
 
@@ -102,18 +103,54 @@ def create_appointment(request):
     return render(request, 'create_appointment.html', {'form': form})
 
 
-@login_required(login_url="my_login")
+#@login_required(login_url="my_login")
+#def upload_image(request):
+ #   if request.method == 'POST':
+  #      form = ImagingForm(request.POST, request.FILES)
+   #     if form.is_valid():
+    #        imaging = form.save(commit=False)
+     #       imaging.patient = request.user
+      #      imaging.save()
+      #      return redirect('dashboard')
+#    else:
+ #       form = ImagingForm()
+  #  return render(request, 'upload_image.html', {'form': form})
+
+
+
+@login_required
 def upload_image(request):
     if request.method == 'POST':
         form = ImagingForm(request.POST, request.FILES)
         if form.is_valid():
             imaging = form.save(commit=False)
             imaging.patient = request.user
+            uploaded_file = request.FILES['image_or_zip']
+
+            if uploaded_file.name.endswith('.zip'):
+                # Handle a zip file upload
+                with ZipFile(uploaded_file, 'r') as zip_ref:
+                    extracted_folder = os.path.splitext(uploaded_file.name)[0]  # Extract folder name
+                    extracted_path = os.path.join(settings.MEDIA_ROOT, 'images_or_zips', extracted_folder)  # Define extraction path within MEDIA_ROOT
+                    os.makedirs(extracted_path, exist_ok=True)  # Create folder if it doesn't exist
+                    zip_ref.extractall(extracted_path)  # Extract contents of the zip file
+
+                # Save the path to the extracted folder in the model
+                imaging.image_or_zip = os.path.join('images_or_zips', extracted_folder)
+            else:
+                # Handle a single image upload
+                imaging.image_or_zip = uploaded_file
+
             imaging.save()
-            return redirect('dashboard')
+            return redirect('medapp:upload_successful')
     else:
         form = ImagingForm()
     return render(request, 'upload_image.html', {'form': form})
+
+@login_required
+def upload_successful(request):
+    return render(request, 'medapp/upload_successfull.html')
+
 
 @login_required
 def upload_report(request, imaging_id):
@@ -125,7 +162,7 @@ def upload_report(request, imaging_id):
             report.doctor = request.user
             report.imaging = imaging
             report.save()
-            return redirect('dashboard')
+            return redirect('upload_successful')
     else:
         form = ReportForm()
     return render(request, 'upload_report.html', {'form': form, 'imaging': imaging})

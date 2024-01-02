@@ -26,10 +26,18 @@ class Appointment(models.Model):
 
 # Define models for imaging and reports
 
+#class Imaging(models.Model):
+ #   patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='imaging')
+  #  image = models.ImageField(upload_to='images/')
+    # Add other fields as needed
+
+
 class Imaging(models.Model):
     patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='imaging')
-    image = models.ImageField(upload_to='images/')
+    image_or_zip = models.FileField(upload_to='images_or_zips/')
     # Add other fields as needed
+
+
 
 class Report(models.Model):
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')

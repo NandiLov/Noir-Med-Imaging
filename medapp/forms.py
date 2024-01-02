@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.forms.widgets import PasswordInput, TextInput
 
 
+
 # - Create/Register a user (Model Form)
 
 class CreateUserForm(UserCreationForm):
@@ -30,10 +31,17 @@ class AppointmentForm(forms.ModelForm):
         model = Appointment
         fields = ['doctor', 'date_time']
 
+#class ImagingForm(forms.ModelForm):
+ #   class Meta:
+  #      model = Imaging
+   #     fields = ['image']
+
+
 class ImagingForm(forms.ModelForm):
     class Meta:
         model = Imaging
-        fields = ['image']
+        fields = ['image_or_zip']
+
 
 class ReportForm(forms.ModelForm):
     class Meta:
