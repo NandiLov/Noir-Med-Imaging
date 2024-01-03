@@ -7,11 +7,16 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
 from .forms import ImagingForm, ReportForm, CreateUserForm, LoginForm
-from .models import Imaging
+from .models import Imaging#, Report
 from zipfile import ZipFile
 import os
 from django.conf import settings
 from django.contrib.auth.models import auth
+from django.contrib.auth.models import Group
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from .models import User, Report
 
 
 def homepage(request):
@@ -152,6 +157,12 @@ def upload_successful(request):
     return render(request, 'medapp/upload_successfull.html')
 
 
+
+
+
+
+
+
 @login_required
 def upload_report(request, imaging_id):
     imaging = Imaging.objects.get(pk=imaging_id)
@@ -166,5 +177,44 @@ def upload_report(request, imaging_id):
     else:
         form = ReportForm()
     return render(request, 'upload_report.html', {'form': form, 'imaging': imaging})
+
+
+
+
+
+
+
+
+
+
+
+def patients_list(request):
+    patients_group = Group.objects.get(name='patients')
+    patients = patients_group.user_set.all()
+    return render(request, 'patients_list.html', {'patients': patients})
+
+def patient_details(request, username):
+    patient = get_object_or_404(User, username=username)
+    imaging = Imaging.objects.filter(patient=patient)
+    reports = Report.objects.filter(imaging__in=imaging)
+    return render(request, 'patient_details.html', {'patient': patient, 'imaging': imaging, 'reports': reports})
+
+def download_file(request, file_id):
+    file_to_download = get_object_or_404(Imaging, pk=file_id)
+    # Logic to handle file download
+    return HttpResponse("Logic for file download goes here")
+
+def write_report(request, imaging_id):
+    imaging = get_object_or_404(Imaging, pk=imaging_id)
+    if request.method == 'POST':
+        # Process report form submission
+        # Save the report details associated with the imaging
+        return redirect('medapp:patient_details', username=imaging.patient.username)
+    else:
+        return render(request, 'write_report.html', {'imaging': imaging})
+
+
+
+
 
 
