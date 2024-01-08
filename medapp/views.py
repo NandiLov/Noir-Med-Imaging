@@ -86,6 +86,7 @@ def user_logout(request):
 @login_required
 def patient_dashboard(request):
 
+
     return render(request, 'medapp/dashboard.html')
 
 @login_required
@@ -170,6 +171,11 @@ def patient_details(request, username):
     imaging_files = Imaging.objects.filter(patient=patient)
     #report = Report.objects.filter(report=report)
     return render(request, 'patient_details.html', {'patient': patient, 'imaging_files': imaging_files, })#'report': report
+
+
+
+
+
 
 
 def write_report(request, imaging_id):

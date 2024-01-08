@@ -1,20 +1,93 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-    <h1> This is my dashboard. </h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-                    <li><a href="https://noirmed.pythonanywhere.com/">Home</a></li>
-                    <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Appointments</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/create_appointment/">Make appointment directly on app</a></li>
-                    <h2>doctors</h2>
-                    <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">doc 1</a></li>
-                    <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 2</a></li>
-                    <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 3</a></li>
-                    <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 4</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/upload_image/">Upload</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/upload_image/">Download Imaging</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/upload_report/">Upload Report</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/patients/">Patients</a></li>
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
 
-    <a href="http://noirmed.pythonanywhere.com/">Logout here</a>
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-bottom: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .logout {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>NoirMed Imaging - dashboard</h1>
+    </header>
+
+    <nav class="container">
+        <h2>Book Appointments with Doctors</h2>
+        <ul>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Mike Jones 1</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 2</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 3</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 4</a></li>
+
+        <h2>Upload image or zip files</h2>
+
+            <li><a href="https://noirmed.pythonanywhere.com/upload_image/">Upload Files</a></li>
+
+        <h2>View All Details</h2>
+
+            <li><a href="{% url 'medapp:patient_details' user.username %}">View My Details</a></li>
+
+
+
+        </ul>
+    </nav>
+
+    <div class="logout">
+        <a href="http://noirmed.pythonanywhere.com/">Logout here</a>
+    </div>
+
+</body>
 
 </html>

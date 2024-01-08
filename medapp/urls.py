@@ -29,6 +29,8 @@ urlpatterns = [
 
     path('patients/', views.patients_list, name='patients_list'),
     path('patient/<str:username>/', views.patient_details, name='patient_details'),
+
+
     path('download_file/<int:file_id>/', views.download_file, name='download_file'),
     path('write_report/<int:imaging_id>/', views.write_report, name='write_report'),
     path('download/<path:file_path>/', views.download_file, name='download_file'),
