@@ -33,12 +33,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='doctor_appointments')
     date_time = models.DateTimeField()
 
-# Define models for imaging and reports
 
-#class Imaging(models.Model):
- #   patient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='imaging')
-  #  image = models.ImageField(upload_to='images/')
-    # Add other fields as needed
 
 
 class Imaging(models.Model):
@@ -52,7 +47,8 @@ class Report(models.Model):
     patient = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='reports')
     imaging = models.ForeignKey(Imaging, on_delete=models.CASCADE, related_name='reports')
     text = models.TextField()
-    report_file = models.FileField(upload_to='reports/', default='default_report.pdf')
+    #report_file = models.FileField(upload_to='reports/', default='default_report.pdf')
+    file = models.FileField(upload_to='reports/',default='default_file.pdf')
 
     def get_report_file_url(self):
         return self.report_file.url

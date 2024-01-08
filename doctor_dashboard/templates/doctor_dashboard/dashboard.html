@@ -1,85 +1,97 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Doctor Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
     <style>
-        /* Modern styles for a clean look */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            color: #333;
         }
 
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
+            background-color: #007bff;
+            color: white;
             text-align: center;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-bottom: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #007bff;
+            color: #fff;
         }
 
         .container {
             max-width: 1200px;
             margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
         }
 
-        .patients-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        .patient-card {
-            width: calc(33% - 20px);
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .patient-details {
-            margin-bottom: 10px;
-        }
-
-        .report-button {
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
+        .logout {
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .report-button:hover {
-            background-color: #45a049;
+            margin-top: 50px;
         }
     </style>
 </head>
+
 <body>
     <header>
-        <h1>Doctor Dashboard</h1>
+        <h1>NoirMed Imaging - dashboard</h1>
     </header>
-    <div class="container">
 
-                    <li><a href="https://noirmed.pythonanywhere.com">Home</a></li>
-                    <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Appointments</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/download_image/">Download Imaging</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/upload_report/">Upload Report</a></li>
-                    <li><a href="https://noirmed.pythonanywhere.com/patients/">Patients</a></li>
-                    <li><a href="https://www.imaios.com/en/imaios-dicom-viewer">Dicom Viewer</a></li>
+    <nav class="container">
+        <h2>Book Appointments with fellow Doctors to discuss cases</h2>
+        <ul>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Mike Jones 1</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 2</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 3</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 4</a></li>
 
-    <a href="http://noirmed.pythonanywhere.com/">Logout here</a>
+        <h2>Upload Patient's Report</h2>
+
+            <li><a href="https://noirmed.pythonanywhere.com/upload_report/">Upload Report</a></li>
+
+        <h2>View All Patients</h2>
+
+            <li><a href="https://noirmed.pythonanywhere.com/patients/">View Patient List</a></li>
+
+        <h2>View images using Dicom viewer</h2>
+
+            <li><a href="https://www.imaios.com/en/imaios-dicom-viewer">Dicom viewer</a></li>
+
+
+        </ul>
+    </nav>
+
+    <div class="logout">
+        <a href="http://noirmed.pythonanywhere.com/">Logout here</a>
     </div>
+
 </body>
+
 </html>

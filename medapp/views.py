@@ -169,8 +169,8 @@ def patients_list(request):
 def patient_details(request, username):
     patient = get_object_or_404(User, username=username)
     imaging_files = Imaging.objects.filter(patient=patient)
-    #report = Report.objects.filter(report=report)
-    return render(request, 'patient_details.html', {'patient': patient, 'imaging_files': imaging_files, })#'report': report
+    reports = Report.objects.filter(imaging__in=imaging_files)
+    return render(request, 'patient_details.html', {'patient': patient, 'imaging_files': imaging_files, 'reports': reports})#'report': report
 
 
 
@@ -193,7 +193,7 @@ def upload_report(request):
         if form.is_valid():
             report = form.save(commit=False)
             report.save()
-            return redirect('success_view')  # Redirect to a success view after upload
+            return redirect(request, 'medapp/upload_successfull.html')  # Redirect to a success view after upload
     else:
         form = ReportForm()
     return render(request, 'upload_report_byname.html', {'form': form})
