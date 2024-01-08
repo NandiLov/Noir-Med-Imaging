@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import AppointmentForm
 from .forms import ImagingForm, ReportForm, CreateUserForm, LoginForm
-from .models import Imaging#, Report
+from .models import Imaging, User, Report
 from zipfile import ZipFile
 import os
 from django.conf import settings
@@ -16,7 +16,10 @@ from django.contrib.auth.models import Group
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
-from .models import User, Report
+
+from mimetypes import guess_type
+
+
 
 
 def homepage(request):
@@ -80,15 +83,6 @@ def user_logout(request):
     return redirect('medapp:homepage')  # Replace 'home' with your desired URL name or path
 
 
-
-#def user_logout(request):
-
- #   auth.logout(request)
-
-  #  return redirect("medapp:homepage")
-
-
-
 @login_required
 def patient_dashboard(request):
 
@@ -102,26 +96,10 @@ def create_appointment(request):
             appointment = form.save(commit=False)
             appointment.patient = request.user
             appointment.save()
-            return redirect('patient_dashboard')
+            return redirect("medapp:patient_dashboard")
     else:
         form = AppointmentForm()
     return render(request, 'create_appointment.html', {'form': form})
-
-
-#@login_required(login_url="my_login")
-#def upload_image(request):
- #   if request.method == 'POST':
-  #      form = ImagingForm(request.POST, request.FILES)
-   #     if form.is_valid():
-    #        imaging = form.save(commit=False)
-     #       imaging.patient = request.user
-      #      imaging.save()
-      #      return redirect('dashboard')
-#    else:
- #       form = ImagingForm()
-  #  return render(request, 'upload_image.html', {'form': form})
-
-
 
 @login_required
 def upload_image(request):
@@ -157,31 +135,25 @@ def upload_successful(request):
     return render(request, 'medapp/upload_successfull.html')
 
 
+def download_file(request, file_path):
+    absolute_file_path = os.path.join(settings.MEDIA_ROOT, file_path)
 
+    if os.path.exists(absolute_file_path) and not os.path.isdir(absolute_file_path):
+        file_extension = os.path.splitext(absolute_file_path)[1].lower()
 
+        with open(absolute_file_path, 'rb') as file:
+            content_type, _ = guess_type(absolute_file_path)
+            response = HttpResponse(file.read(), content_type=content_type)
 
+            # Set the content disposition based on file type
+            if file_extension in ['.zip']:
+                response['Content-Disposition'] = 'attachment; filename=%s' % os.path.basename(absolute_file_path)
+            elif file_extension in ['.jpg', '.jpeg', '.png', '.gif']:
+                response['Content-Disposition'] = 'inline; filename=%s' % os.path.basename(absolute_file_path)
 
-
-
-@login_required
-def upload_report(request, imaging_id):
-    imaging = Imaging.objects.get(pk=imaging_id)
-    if request.method == 'POST':
-        form = ReportForm(request.POST)
-        if form.is_valid():
-            report = form.save(commit=False)
-            report.doctor = request.user
-            report.imaging = imaging
-            report.save()
-            return redirect('upload_successful')
+            return response
     else:
-        form = ReportForm()
-    return render(request, 'upload_report.html', {'form': form, 'imaging': imaging})
-
-
-
-
-
+        return HttpResponse("File not found", status=404)
 
 
 
@@ -195,14 +167,10 @@ def patients_list(request):
 
 def patient_details(request, username):
     patient = get_object_or_404(User, username=username)
-    imaging = Imaging.objects.filter(patient=patient)
-    reports = Report.objects.filter(imaging__in=imaging)
-    return render(request, 'patient_details.html', {'patient': patient, 'imaging': imaging, 'reports': reports})
+    imaging_files = Imaging.objects.filter(patient=patient)
+    #report = Report.objects.filter(report=report)
+    return render(request, 'patient_details.html', {'patient': patient, 'imaging_files': imaging_files, })#'report': report
 
-def download_file(request, file_id):
-    file_to_download = get_object_or_404(Imaging, pk=file_id)
-    # Logic to handle file download
-    return HttpResponse("Logic for file download goes here")
 
 def write_report(request, imaging_id):
     imaging = get_object_or_404(Imaging, pk=imaging_id)
@@ -213,6 +181,29 @@ def write_report(request, imaging_id):
     else:
         return render(request, 'write_report.html', {'imaging': imaging})
 
+def upload_report(request):
+    if request.method == 'POST':
+        form = ReportForm(request.POST, request.FILES)
+        if form.is_valid():
+            report = form.save(commit=False)
+            report.save()
+            return redirect('success_view')  # Redirect to a success view after upload
+    else:
+        form = ReportForm()
+    return render(request, 'upload_report_byname.html', {'form': form})
+
+
+def download_report(request, report_id):
+    report = get_object_or_404(Report, pk=report_id)
+    # Here, you may want to add additional logic for permissions,
+    # ensuring the user has access to this report, etc.
+    # For now, let's assume anyone who has the link can download the report.
+    file_url = report.get_report_file_url()
+    # Implement logic to handle the file download (e.g., using Django's FileResponse)
+    response = HttpResponse(content_type='application/pdf')  # Adjust content_type as needed
+    response['Content-Disposition'] = f'attachment; filename="{report.report_file.name}"'
+    response['X-Sendfile'] = file_url  # Use appropriate method for file serving in your setup
+    return response
 
 
 

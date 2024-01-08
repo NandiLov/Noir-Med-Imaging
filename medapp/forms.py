@@ -31,11 +31,6 @@ class AppointmentForm(forms.ModelForm):
         model = Appointment
         fields = ['doctor', 'date_time']
 
-#class ImagingForm(forms.ModelForm):
- #   class Meta:
-  #      model = Imaging
-   #     fields = ['image']
-
 
 class ImagingForm(forms.ModelForm):
     class Meta:
@@ -47,3 +42,5 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ['text']
+
+

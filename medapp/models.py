@@ -10,7 +10,16 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Add fields for user profile (e.g., role: admin, doctor, patient)
+    # Additional fields for user profile
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('doctor', 'Doctor'),
+        ('patient', 'Patient'),
+    ]
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='patient')  # Provide a default value
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
@@ -40,6 +49,10 @@ class Imaging(models.Model):
 
 
 class Report(models.Model):
-    doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reports')
+    patient = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='reports')
     imaging = models.ForeignKey(Imaging, on_delete=models.CASCADE, related_name='reports')
     text = models.TextField()
+    report_file = models.FileField(upload_to='reports/', default='default_report.pdf')
+
+    def get_report_file_url(self):
+        return self.report_file.url
