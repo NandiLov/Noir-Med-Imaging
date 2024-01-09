@@ -51,10 +51,36 @@
             padding: 0 20px;
         }
 
-        .logout {
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .logout,
+        .contact {
             text-align: center;
             margin-top: 50px;
         }
+
+        .logout a,
+        .contact a {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout a:hover,
+        .contact a:hover {
+            background-color: #0056b3;
+        }
+
+
+
     </style>
 </head>
 
@@ -63,13 +89,17 @@
         <h1>NoirMed Imaging - dashboard</h1>
     </header>
 
+    <div class="contact">
+        <a href="mailto:noirmedimaging@gmail.com">Contact Us</a>
+    </div>
+
     <nav class="container">
         <h2>Book Appointments with Doctors</h2>
         <ul>
-            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Mike Jones 1</a></li>
-            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 2</a></li>
-            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 3</a></li>
-            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doc 4</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Mike Jones - Available: Mondays 9 AM - 5 PM (CAT)</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Zoey Chisha - Available: Wednesdays 10 AM - 4 PM (GMT)</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Lukundo Namfukwe - Available: Fridays 8 AM - 12 PM (PST)</a></li>
+            <li><a href="https://calendly.com/noirmedimaging/doctor-s-consultation">Doctor Zack James - Available: Tuesdays 11 AM - 6 PM (JST)</a></li>
 
         <h2>Upload image or zip files</h2>
 
@@ -78,11 +108,6 @@
         <h2>View All Details</h2>
 
             <li><a href="{% url 'medapp:patient_details' user.username %}">View My Details</a></li>
-
-
-
-
-
 
         </ul>
     </nav>
