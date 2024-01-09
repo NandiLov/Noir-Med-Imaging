@@ -1,6 +1,6 @@
 # Noir Med-Imaging by Nandila Mulilalila
 
-![NutriDataAPI Hero](https://nandilov.github.io/Noir-Med-imaging/static/admin/img/ background-image.jpg)
+![Noir-Med-Imaging Hero](https://github.com/NandiLov/Noir-Med-imaging/background-image.jpg)
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Stars](https://img.shields.io/github/stars/NandiLov/Noir-Med-Imaging.svg)](https://github.com/yourusername/Noir-Med-Imaging/stargazers)
