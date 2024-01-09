@@ -1,4 +1,17 @@
 # Noir Med-Imaging by Nandila Mulilalila
+
+![NutriDataAPI Hero](https://nandilov.github.io/Noir-Med-imaging/static/admin/img/ background-image.jpg)
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/NandiLov/Noir-Med-Imaging.svg)](https://github.com/yourusername/Noir-Med-Imaging/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/NandiLov/Noir-Med-Imaging.svg)](https://github.com/yourusername/Noir-Med-Imaging/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/NandiLov/Noir-Med-Imaging.svg)](https://github.com/yourusername/Noir-Med-Imaging/issues)
+
+
+## Visit our website
+**[Visit Noir-Med-Imaging](https://noirmed.pythonanywhere.com/)**
+
+
 ## WebApp Description:
 
 Noir Med-Imaging is a state-of-the-art web application designed to streamline and enhance the healthcare experience for both patients and medical professionals. This comprehensive platform integrates cutting-edge features to facilitate seamless communication, diagnostics, and healthcare management. Here's an overview of the key functionalities:
@@ -39,3 +52,12 @@ Seamless Deployment and Accessibility:
 
 The web application is deployed on the robust PythonAnywhere platform, ensuring reliability and accessibility from anywhere with an internet connection.
 Noir Med-Imaging represents the future of healthcare management, fostering collaboration, transparency, and efficiency in the patient-doctor relationship. Embrace a new era of healthcare technology with HealthHub Connect, where innovation meets compassionate care.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## Contact
+
+For any questions or inquiries, please contact us at [EMAIL](nandilamul@gmail.com)
